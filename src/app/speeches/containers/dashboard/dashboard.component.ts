@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Router } from "@angular/router"
 import { PopUpDialogComponent } from '../../components/pop-up-dialog/pop-up-dialog.component';
+import { Store } from '@ngrx/store';
+import * as fromSpeeches from '../../reducers';
+import { SpeechAction } from '../../actions';
 
 @Component({
   selector: 'app-dashboard',
@@ -17,7 +20,8 @@ export class DashboardComponent implements OnInit {
 
   constructor(
     public dialog: MatDialog,
-    private router: Router
+    private router: Router,
+    private store: Store<fromSpeeches.State>
   ) { }
 
   ngOnInit() {
@@ -37,8 +41,9 @@ export class DashboardComponent implements OnInit {
     });
   }
 
-  onEnterGroupID() {
-    this.router.navigate(['/speech-list'])
+  async onEnterGroupID() {
+    await this.store.dispatch(SpeechAction.loadSpeeches());
+    this.router.navigate(['/speech-admin'])
   }
 }
 
