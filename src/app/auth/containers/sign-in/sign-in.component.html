@@ -1,0 +1,86 @@
+<div class="row">
+  <div class="col-lg-4 col-md-6 col-sm-8 mx-auto">
+    <ng-container *ngIf="expression; else elseTemplate">
+      <div class="card-header card-header-primary text-center">
+        <i class="material-icons">person</i>
+        <h4 class="card-title">Sign In</h4>
+        <p class="card-category">
+          <i (click)="onSignIn()" class="c-pointer text-primary">
+            Create New Account
+          </i>  
+        </p>
+      </div>
+      <div class="card-body">
+        <form (click)="onSignIn()">
+          <div class="row">
+            <div class="col-lg-6">
+              <mat-form-field class="example-full-width">
+                <input matInput type="text" placeholder="Username">
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-6">
+              <mat-form-field class="example-full-width">
+                <input matInput type="password" placeholder="Password">
+              </mat-form-field>
+            </div>
+          </div>
+          <button type="sumit" mat-raised-button class="btn btn-primary">Submit</button>
+        </form>
+      </div>
+    </ng-container>
+    <ng-template #elseTemplate>
+      <form (click)="onRegister()">
+        <input type="hidden" name="_token" value="eGhOPBevmI3WUtOHV2ciDHeVFdDtE3ipYyh4TAW9">
+        <div class="card card-login mb-3">
+          <div class="card-header card-header-primary text-center">
+            <h4 class="card-title"><strong>Register</strong></h4>
+            <div class="social-line">
+              <a href="#pablo" class="btn btn-just-icon btn-link btn-white">
+                <i class="fa fa-facebook-square"></i>
+              <div class="ripple-container"></div></a>
+              <a href="#pablo" class="btn btn-just-icon btn-link btn-white">
+                <i class="fa fa-twitter"></i>
+              <div class="ripple-container"></div></a>
+              <a href="#pablo" class="btn btn-just-icon btn-link btn-white">
+                <i class="fa fa-google-plus"></i>
+              <div class="ripple-container"></div></a>
+            </div>
+          </div>
+          <div class="card-body ">
+            <p class="card-description text-center">
+              Already have an Account? 
+              <i (click)="onSignIn()" class="c-pointer text-primary">
+                Sign In
+              </i>
+            </p>
+            <mat-form-field class="example-full-width">
+              <input matInput type="text" placeholder="Name">
+            </mat-form-field>
+          
+            <mat-form-field class="example-full-width">
+              <input matInput type="text" placeholder="Email">
+            </mat-form-field>
+        
+            <mat-form-field class="example-full-width">
+              <input matInput type="text" placeholder="Password">
+            </mat-form-field>
+          
+            <mat-form-field class="example-full-width">
+              <input matInput type="text" placeholder="Confirm Password">
+            </mat-form-field>
+          </div>
+          <div class="card-footer justify-content-center">
+            <button 
+              type="submit" 
+              class="btn btn-primary btn-link btn-lg">
+              Create account
+              <div class="ripple-container"></div>
+            </button>
+          </div>
+        </div>
+      </form>
+    </ng-template>
+  </div> <!-- end of col -->
+</div> <!-- end of row -->

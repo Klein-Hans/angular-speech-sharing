@@ -1,0 +1,22 @@
+<div>
+  <button class="close d-block" mat-button (click)="onClose()">
+    <i class="material-icons">close</i>
+  </button>
+  <h1 mat-dialog-title>Enter Group ID</h1>
+  <div mat-dialog-content>
+    <mat-form-field>
+      <mat-label>Group ID</mat-label>
+      <input matInput [(ngModel)]="groupId">
+    </mat-form-field>
+  </div>
+  <div mat-dialog-actions>
+    <button
+      (click)="onEnterGroupID()"
+      mat-raised-button 
+      class="btn btn-info float-right btn-block" 
+      [mat-dialog-close]="groupId" 
+      cdkFocusInitial>
+      Ok
+    </button>
+  </div>
+</div>

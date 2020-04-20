@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "angular-speech-7c792": {
+      "hosting": {
+        "angular-speech-app": [
+          "angular-speech-7c792"
+        ]
+      }
+    }
+  }
+}
