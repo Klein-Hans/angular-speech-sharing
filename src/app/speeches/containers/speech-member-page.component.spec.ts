@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SpeechListComponent } from './speech-list.component';
+import { SpeechMemberPageComponent } from './speech-member-page.component';
 
-describe('SpeechListComponent', () => {
-  let component: SpeechListComponent;
-  let fixture: ComponentFixture<SpeechListComponent>;
+describe('SpeechMemberPageComponent', () => {
+  let component: SpeechMemberPageComponent;
+  let fixture: ComponentFixture<SpeechMemberPageComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SpeechListComponent ]
+      declarations: [ SpeechMemberPageComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(SpeechListComponent);
+    fixture = TestBed.createComponent(SpeechMemberPageComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

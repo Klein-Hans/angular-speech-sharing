@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SpeechAdminComponent } from './speech-admin.component';
+import { SpeechAdminPageComponent } from './speech-admin-page.component';
 
-describe('SpeechAdminComponent', () => {
-  let component: SpeechAdminComponent;
-  let fixture: ComponentFixture<SpeechAdminComponent>;
+describe('SpeechAdminPageComponent', () => {
+  let component: SpeechAdminPageComponent;
+  let fixture: ComponentFixture<SpeechAdminPageComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SpeechAdminComponent ]
+      declarations: [ SpeechAdminPageComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(SpeechAdminComponent);
+    fixture = TestBed.createComponent(SpeechAdminPageComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

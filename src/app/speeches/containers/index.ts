@@ -1,3 +1,3 @@
-export * from  './dashboard/dashboard.component';
-export * from  './speech-admin/speech-admin.component';
-export * from  './speech-list/speech-list.component';
+export * from  './dashboard.component';
+export * from  './speech-admin-page.component';
+export * from  './speech-member-page.component';

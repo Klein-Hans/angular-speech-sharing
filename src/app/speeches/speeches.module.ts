@@ -4,11 +4,15 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { EffectsModule, Actions } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 import { SpeechesRoutingModule } from './speeches-routing';
-import { NavTabTableComponent, PopUpDialogComponent } from './components';
+import { 
+  NavTabTableComponent, 
+  PopUpDialogComponent, 
+  SpeechTableComponent,
+} from './components';
 import {
   DashboardComponent,
-  SpeechAdminComponent,
-  SpeechListComponent
+  SpeechAdminPageComponent,
+  SpeechMemberPageComponent,
 } from './containers';
 // import { SpeechEffects } from './effects';
 import * as fromSpeeches from './reducers';
@@ -30,13 +34,14 @@ import { SpeechEffects } from './effects';
 
 export const COMPONENTS = [
   NavTabTableComponent,
-  PopUpDialogComponent
+  PopUpDialogComponent,
+  SpeechTableComponent,
 ];
 
 export const CONTAINERS = [
   DashboardComponent,
-  SpeechAdminComponent,
-  SpeechListComponent,
+  SpeechAdminPageComponent,
+  SpeechMemberPageComponent,
 ];
 
 @NgModule({
@@ -66,7 +71,7 @@ export const CONTAINERS = [
     // PipesModule,
   ],
   providers: [ Actions ],
-  declarations: [ COMPONENTS, CONTAINERS, PopUpDialogComponent],
+  declarations: [ COMPONENTS, CONTAINERS ],
   entryComponents: [ PopUpDialogComponent ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 })

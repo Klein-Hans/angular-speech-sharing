@@ -1,30 +1,22 @@
-<div class="wrapper">
-  <div class="container">
-    <div class="card">
-      <div class="card-header card-header-tabs card-header-primary">
-          <a mat-button class="nav-link active" href="#profile" data-toggle="tab">
-              <i class="material-icons">description</i> View All Speeches
-              <div class="ripple-container"></div>
-          </a>
-      </div>
-      <div class="card-body">
+import { Component, OnInit, Input } from '@angular/core';
+import { Speech } from '../models';
+
+@Component({
+  selector: 'speech-table',
+  template: `
+  <div class="card">
+    <div class="card-header card-header-primary">
+      <h4 class="card-title ">Speeches Table</h4>
+    </div>
+    <div class="card-body">
+      <div class="table-responsive">
         <table class="table">
           <thead class=" text-primary">
-            <th>
-                ID
-            </th>
-            <th>
-                Author
-            </th>
-            <th>
-                Subject
-            </th>
-            <th>
-                Content
-            </th>
-            <th>
-                Action
-            </th>
+            <th> ID </th>
+            <th> Author </th>
+            <th> Subject </th>
+            <th> Content </th>
+            <th> Action </th>
           </thead>
           <tbody>
             <tr *ngFor="let speech of speeches">
@@ -44,6 +36,18 @@
             </tr>
           </tbody>
         </table>
+      </div>
     </div>
   </div>
-</div>
+  `,
+  styles: [``]
+})
+export class SpeechTableComponent implements OnInit {
+
+  @Input() speeches: Speech[];
+
+  constructor() { }
+
+  ngOnInit() {
+  }
+}

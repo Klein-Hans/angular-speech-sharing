@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { OrderedTableComponent } from './ordered-table.component';
+import { SpeechTableComponent } from './speech-table.component';
 
-describe('OrderedTableComponent', () => {
-  let component: OrderedTableComponent;
-  let fixture: ComponentFixture<OrderedTableComponent>;
+describe('SpeechTableComponent', () => {
+  let component: SpeechTableComponent;
+  let fixture: ComponentFixture<SpeechTableComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ OrderedTableComponent ]
+      declarations: [ SpeechTableComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(OrderedTableComponent);
+    fixture = TestBed.createComponent(SpeechTableComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

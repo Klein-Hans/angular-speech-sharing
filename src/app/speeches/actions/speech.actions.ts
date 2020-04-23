@@ -5,7 +5,7 @@ export const loadSpeeches = createAction('[Speech Module] Load Speeches',);
 
 export const selectSpeech = createAction(
   '[Speech Module] Select Speech',
-  props<{ speech: Speech }>()
+  props<{ id: string }>()
 );
 
 export const loadSpeechesSuccess = createAction(

@@ -18,7 +18,7 @@ export const initialState: State = adapter.getInitialState({
   selectedSpeechId: null,
 }); 
 
-export const speechReducer = createReducer(
+export const reducer = createReducer(
   initialState,
   on(SpeechAction.loadSpeeches, state => ({
     ...state,
@@ -27,6 +27,10 @@ export const speechReducer = createReducer(
   on(SpeechAction.loadSpeechesSuccess, (state, { speeches }) => 
     adapter.addAll(speeches, state)
   ),
+  on(SpeechAction.selectSpeech, (state, { id }) => ({
+    ...state,
+    selectedSpeechId: id,
+  }))
   // on(SpeechAction.loadSpeechesSuccess, (state, { speeches }) => ({
   //   ...state,
   //   loaded: true,
@@ -35,25 +39,6 @@ export const speechReducer = createReducer(
   // })),
 );
 
-export function reducer(state: State | undefined, action: Action) {
-  return speechReducer(state, action);
-}
-
 export const getSelectedSpeechId = (state: State) => state.selectedSpeechId;
 
-const {
-  selectIds,
-  selectEntities,
-  selectAll,
-  selectTotal,
-} = adapter.getSelectors();
-
-export const selectSpeechIds = selectIds;
- 
-export const selectSpeechEntities = selectEntities;
- 
-export const selectAllSpeeches = selectAll;
- 
-export const selectSpeechTotal = selectTotal;
-
-// export const selectId = (state: State) => state.selectedSpeechId;
+export const selectId = (state: State) => state.selectedSpeechId;

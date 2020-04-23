@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Actions, createEffect, ofType, Effect } from '@ngrx/effects';
+import { Actions, createEffect, ofType, Effect, ROOT_EFFECTS_INIT } from '@ngrx/effects';
 import { asyncScheduler, EMPTY as empty, of } from 'rxjs';
 import {
   catchError,
@@ -14,9 +14,14 @@ import {
 import { Speech } from '../models';
 import { SpeechAction } from '../actions';
 import { SpeechService } from '../services'
+import { Action } from '@ngrx/store';
 
 @Injectable()
 export class SpeechEffects {
+
+  ngrxOnInitEffects(): Action {
+    return { type: '[Speech Module] Load Speeches' };
+  }
 
   @Effect()
   loadSpeeches$ = createEffect(() =>

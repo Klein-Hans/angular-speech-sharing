@@ -11,42 +11,50 @@ import * as fromRoot from '../../reducers';
 
 export const speechesFeatureKey = 'speeches';
 
-export interface State extends fromRoot.State {
-  speeches: fromSpeech.State
+export interface SpeechesState {
+  [fromSpeech.speechFeatureKey]: fromSpeech.State;
+  //...
 }
 
-export const reducers: ActionReducerMap<State> = {
-  speeches: fromSpeech.reducer,
-};
+export interface State extends fromRoot.State {
+  [speechesFeatureKey]: fromSpeech.State,
+  // [fromSearch.searchFeatureKey]: fromSearch.State;
+  // [fromCollection.collectionFeatureKey]: fromCollection.State;
+}
 
-export const selectSpeechState = createFeatureSelector<fromSpeech.State>(
+export function reducers(state: SpeechesState | undefined, action: Action) {
+  return combineReducers({
+    [fromSpeech.speechFeatureKey]: fromSpeech.reducer,
+    // [fromSearch.searchFeatureKey]: fromSearch.reducer,
+    // [fromCollection.collectionFeatureKey]: fromCollection.reducer,
+  })(state, action);
+}
+
+export const selectSpeechesState = createFeatureSelector<State, SpeechesState>(
   speechesFeatureKey
 );
 
-export const selectSpeechIds = createSelector(
-  selectSpeechState,
-  fromSpeech.selectSpeechIds // shorthand for speechState => fromSpeech.selectSpeechIds(speechState)
-);
-export const selectSpeechEntities = createSelector(
-  selectSpeechState,
-  fromSpeech.selectSpeechEntities
-);
-export const selectAllSpeeches = createSelector(
-  selectSpeechState,
-  fromSpeech.selectAllSpeeches
-);
-export const selectSpeechTotal = createSelector(
-  selectSpeechState,
-  fromSpeech.selectSpeechTotal
+export const selectSpeechState = createSelector(
+  selectSpeechesState,
+  state => state.speeches
 );
 
-export const selectCurrentSpeechId = createSelector(
+export const selectSelectedSpeechId = createSelector(
   selectSpeechState,
   fromSpeech.getSelectedSpeechId
 );
- 
-export const selectCurrentSpeech = createSelector(
-  selectSpeechEntities,
-  selectCurrentSpeechId,
-  (speechEntities, speechId) => speechEntities[speechId]
+
+export const {
+  selectIds: selectIds,
+  selectEntities: selectSpeechesEntities,
+  selectAll: selectAllSpeeches,
+  selectTotal: selectTotalSpeeches,
+} = fromSpeech.adapter.getSelectors(selectSpeechState);
+
+export const selectSelectedSpeech = createSelector(
+  selectSpeechesEntities,
+  selectSelectedSpeechId,
+  (entities, selectedId) => {
+    return selectedId && entities[selectedId];
+  }
 );
