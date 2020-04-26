@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 
 @Component({
   selector: 'app-root',
@@ -7,9 +7,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AppLayoutComponent implements OnInit {
 
+  @HostListener('window:resize', ['$event'])
+  onResize(event) {
+    this.isMobileMenu();
+  }
+  
   constructor() { }
 
-  ngOnInit() {
+  ngOnInit() {  
+    console.log($(window).width());
   }
 
+  isMobileMenu() {
+    if ($(window).width() > 991) {
+        return false;
+    }
+    return true;
+  };
 }

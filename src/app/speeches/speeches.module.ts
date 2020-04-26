@@ -30,7 +30,8 @@ import {
   MatCardModule
 } from '@angular/material';
 import { SpeechEffects } from './effects';
-
+import { PipesModule } from '../shared/pipes/';
+import { SpeechDetailComponent } from './components/speech-detail/speech-detail.component';
 
 export const COMPONENTS = [
   NavTabTableComponent,
@@ -68,10 +69,10 @@ export const CONTAINERS = [
      */
     StoreModule.forFeature('speeches', fromSpeeches.reducers),
     EffectsModule.forFeature([SpeechEffects]),
-    // PipesModule,
+    PipesModule,
   ],
   providers: [ Actions ],
-  declarations: [ COMPONENTS, CONTAINERS ],
+  declarations: [ COMPONENTS, CONTAINERS, SpeechDetailComponent ],
   entryComponents: [ PopUpDialogComponent ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 })

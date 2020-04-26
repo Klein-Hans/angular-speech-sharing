@@ -1,5 +1,6 @@
 import { createAction, props } from '@ngrx/store';
 import { Speech } from '../models';
+import { Update } from '@ngrx/entity';
 
 export const loadSpeeches = createAction('[Speech Module] Load Speeches',);
 
@@ -8,22 +9,12 @@ export const selectSpeech = createAction(
   props<{ id: string }>()
 );
 
-export const loadSpeechesSuccess = createAction(
-  '[Speeches/API] Load Speeches Success',
-  props<{ speeches: Speech[] }>()
-);
-
-export const loadSpeechesFail = createAction(
-  '[Speeches/API] Load Speeches Fail',
-  props<{ errorMsg: string }>()
-);
-
 export const updateSpeech = createAction(
   '[Selected Speech] Update Speech',
   props<{ speech: Speech }>()
 );
 
-export const removeSpeech = createAction(
+export const deleteSpeech = createAction(
   '[Selected Speech] Remove Speech',
   props<{ speech: Speech }>()
 );

@@ -25,7 +25,7 @@ export const CONTAINERS = [
 @NgModule({
   imports: [ 
     CommonModule, 
-    RouterModule,
+    RouterModule
   ],
   declarations: [ COMPONENTS, CONTAINERS ],
   exports: COMPONENTS,

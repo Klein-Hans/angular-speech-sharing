@@ -1,0 +1,219 @@
+<div class="card">
+	<div class="card-header card-header-tabs card-header-primary">
+		<div class="nav-tabs-navigation">
+			<div class="nav-tabs-wrapper">
+				<ul class="nav nav-tabs" data-tabs="tabs">
+					<li class="nav-item">
+						<a mat-button class="nav-link active" href="#profile" data-toggle="tab">
+							<i class="material-icons">description</i> View my Speeches
+							<div class="ripple-container"></div>
+						</a>
+					</li>
+					<li class="nav-item">
+						<a mat-button class="nav-link" href="#messages" data-toggle="tab">
+							<i class="material-icons">note_add</i> Submit a new Speech
+							<div class="ripple-container"></div>
+						</a>
+					</li>
+					<li class="nav-item">
+						<a mat-button class="nav-link" href="#settings" data-toggle="tab">
+							<i class="material-icons">find_in_page</i> Search all Speeches
+							<div class="ripple-container"></div>
+						</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<div class="card-body">
+		<div class="tab-content">
+			<div class="tab-pane active" id="profile">
+				<div class="row">
+					<div class="col-lg-3">
+						<div class="card p-2 custom-height">
+							<button
+								*ngFor="let speech of speeches; index as i"
+								(click)="onSelectSpeech(speech.id)"
+								mat-button 
+								class="text-left btn btn-block"
+								[ngClass]="{'btn-primary': speech.id == selectedSpeechId}">
+									Speech {{ i + 1 }}
+									<i *ngIf="speech.id == selectedSpeechId" class="material-icons">play_arrow</i>
+							</button>
+						</div>
+					</div>
+					<div class="col-lg-9">
+						<div class="card p-2">
+							<form [formGroup]="selectedSpeechForm">
+								<mat-form-field>
+									<textarea
+										formControlName="content"
+										matInput 
+										rows="5" 
+										cols="40"
+										placeholder="Speech Content shown here"></textarea>
+								</mat-form-field> 
+								<div class="row">
+									<div class="col-lg-3">
+										<mat-form-field>
+											<input formControlName="author" matInput type="text" placeholder="Author">
+										</mat-form-field>
+									</div>
+									<div class="col-lg-5">
+										<mat-form-field>
+											<input formControlName="subject" matInput type="text" placeholder="Subject Area Keywords">
+										</mat-form-field>
+									</div>
+									<div class="col-lg-4">
+										<mat-form-field>
+											<mat-label>Speech Date</mat-label>
+											<input
+												formControlName="publishedDate"
+												matInput 
+												[matDatepicker]="picker">
+											<mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+											<mat-datepicker #picker></mat-datepicker>
+										</mat-form-field>
+									</div>
+									<div class="col-lg-12 d-flex justify-content-end">
+                    <button 
+                      type="button"
+                      (click)="onDeleteSpeech($event)" 
+                      mat-button class="text-left btn btn-danger">
+											<i class="material-icons">delete</i>
+											Delete
+										</button>
+                    <button 
+                      type="button"
+                      (click)="onUpdateSpeech($event)"
+											mat-button class="text-left btn btn-primary ml-2">
+											<i class="material-icons">save</i>
+											Save
+										</button>
+                    <button 
+                      type="button"  
+                      mat-button class="text-left btn btn-info ml-2">
+											<i class="material-icons">share</i>
+											Share
+										</button>
+									</div> <!-- end of col -->
+								</div>
+							</form>
+						</div>
+					</div> <!-- end of col -->
+				</div> <!-- end of row -->
+			</div> <!-- end of tab-pane -->
+			<div class="tab-pane" id="messages">
+				<form [formGroup]="newSpeechForm" (ngSubmit)="onAddSpeech($event)">
+					<mat-form-field>
+						<input matInput formControlName="subject" type="text" placeholder="Subject Area Keywords">
+					</mat-form-field>
+					<mat-form-field>
+						<textarea 
+							matInput 
+							formControlName="content"
+							rows="5" 
+							cols="40" 
+							placeholder="Speech Content"></textarea>
+					</mat-form-field>
+					<button type="submit" class="btn btn-primary float-right">
+						<i class="material-icons">save</i>
+						Save
+					</button>
+				</form>
+			</div> <!-- end of tab-pane -->
+			<div class="tab-pane" id="settings">
+				<form class="w-25">
+					<div class="input-group no-border">
+							<input type="text" name="query" class="form-control" [(ngModel)]="speechQuery" placeholder="Search...">
+							<button mat-raised-button type="submit" class="btn btn-white btn-round btn-just-icon">
+									<i class="material-icons">search</i>
+									<div class="ripple-container"></div>
+							</button>
+					</div>
+			</form>
+				<table class="table">
+					<thead class=" text-primary">
+						<th>
+								ID
+						</th>
+						<th>
+								Author
+						</th>
+						<th>
+								Subject
+						</th>
+						<th>
+								Content
+						</th>
+						<th>
+								Action
+						</th>
+					</thead>
+					<tbody>
+						<tr *ngFor="let speech of speeches | filter: speechQuery">
+							<td>{{ speech.id }}</td>
+							<td>{{ speech.author }}</td>
+							<td>
+								{{ ( speech.subject.length > 16 ) ? ( speech.subject | slice: 0:16 ) + '...' : ( speech.subject ) }}
+							</td>
+							<td>
+								{{ ( speech.content.length > 25 ) ? ( speech.content | slice: 0:25 ) + '...' : ( speech.content ) }}
+							</td>
+							<td>
+                <button 
+                  (click)="onSpeechDetails(speech)"
+                  mat-raised-button 
+                  type="button" 
+                  matTooltip="View Details" 
+                  [matTooltipPosition]="'above'" 
+                  class="btn btn-info btn-link btn-sm btn-just-icon">
+									<i class="material-icons">visibility</i>
+								</button>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div> <!-- end of card-body -->
+</div> <!-- end of card -->
+
+<ng-template #speechDetailDialog class="speechDetailDialog" let-data>
+  <button class="close d-block" mat-button matDialogClose>
+    <i class="material-icons">close</i>
+  </button>
+  <h2 matDialogTitle>
+    <i class="material-icons">description</i>&nbsp;
+    Speech Detail
+  </h2>
+	<mat-dialog-content>
+    <div class="container">
+      <div class="row">
+        <div class="col-6">
+          <b>Subject</b>
+          <p>{{ data.subject }}</p>
+          <b>Comtent</b>
+          <p>{{ data.content }}</p>
+        </div>
+        <div class="col-6">
+          <b>Author</b>
+          <p>{{ data.author }}</p>
+          <b>Published Date</b>
+          <p>{{ data.publishedDate.toDate() | date }}</p>
+          <b>Group</b>
+          <p>{{ data.group }}</p>
+        </div>
+      </div>
+    </div>
+	</mat-dialog-content>
+	<mat-dialog-actions align="end">
+    <button
+      matDialogClose
+      mat-raised-button 
+      class="btn btn-info float-right"  
+      cdkFocusInitial>
+      Okay
+    </button>
+	</mat-dialog-actions>
+</ng-template>

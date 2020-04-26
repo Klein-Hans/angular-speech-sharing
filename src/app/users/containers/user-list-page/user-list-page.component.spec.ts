@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { DialogInfoComponent } from './dialog-info.component';
+import { UserListPageComponent } from './user-list-page.component';
 
-describe('DialogInfoComponent', () => {
-  let component: DialogInfoComponent;
-  let fixture: ComponentFixture<DialogInfoComponent>;
+describe('UserListPageComponent', () => {
+  let component: UserListPageComponent;
+  let fixture: ComponentFixture<UserListPageComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ DialogInfoComponent ]
+      declarations: [ UserListPageComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(DialogInfoComponent);
+    fixture = TestBed.createComponent(UserListPageComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

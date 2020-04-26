@@ -1,20 +1,20 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType, Effect, ROOT_EFFECTS_INIT } from '@ngrx/effects';
 import { asyncScheduler, EMPTY as empty, of } from 'rxjs';
+import * as fromSpeeches from '../../reducers';
 import {
   catchError,
-  debounceTime,
   map,
-  skip,
   switchMap,
-  takeUntil,
+  mergeMap,
   tap,
 } from 'rxjs/operators';
 
 import { Speech } from '../models';
-import { SpeechAction } from '../actions';
+import { SpeechPageAction, SpeechApiAction } from '../actions';
 import { SpeechService } from '../services'
-import { Action } from '@ngrx/store';
+import { Action, Store } from '@ngrx/store';
+import { Update } from '@ngrx/entity';
 
 @Injectable()
 export class SpeechEffects {
@@ -23,18 +23,69 @@ export class SpeechEffects {
     return { type: '[Speech Module] Load Speeches' };
   }
 
-  @Effect()
   loadSpeeches$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(SpeechAction.loadSpeeches),
+      ofType(SpeechPageAction.loadSpeeches),
       switchMap(() => 
         this.speechService.getAll().pipe(
-          map((speeches: Speech[]) =>
-            SpeechAction.loadSpeechesSuccess({ speeches })
+          tap((speeches: Speech[]) => 
+            this.store.dispatch(SpeechApiAction.loadSpeeches({ speeches }))
+          ),
+          map((speeches: Speech[]) => 
+            SpeechApiAction.loadSpeechesSuccess({ speeches }),
           ),
           catchError(err =>
-            of(SpeechAction.loadSpeechesFail({ errorMsg: err.message }))
+            of(SpeechApiAction.loadSpeechesFail({ errorMsg: err.message }))
           )
+        )
+      )
+    )
+  );
+
+  addSpeech$ = createEffect(() => 
+    this.actions$.pipe(
+      ofType(SpeechPageAction.addSpeech),
+      mergeMap(({ speech }) =>
+        this.speechService.add(speech).pipe(
+          map(() => SpeechApiAction.addSpeechSuccess({ speech })),
+          catchError(() => of(SpeechApiAction.addSpeechFail({ speech })))
+        )
+      )
+    )
+  );
+
+  updateSpeech$ = createEffect(() => 
+    this.actions$.pipe(
+      ofType(SpeechPageAction.updateSpeech),
+      mergeMap(({ speech }) => 
+        this.speechService.update(speech).pipe(
+          tap(speech$ => {
+            console.log(speech$);
+            const speech: Update<Speech> = {
+              id: speech$.id,
+              changes: { ...speech$ }
+            }
+            this.store.dispatch(SpeechApiAction.updateSpeech({ speech }))
+            const id = speech$.id;
+            // this.store.dispatch(SpeechPageAction.selectSpeech({ id }))
+          }),
+          map(() => SpeechApiAction.updateSpeechSuccess({ speech })),
+          catchError(() => of(SpeechApiAction.updateSpeechFail({ speech })))
+        )
+      )
+    )
+  );
+  
+  deleteSpeech$ = createEffect(() => 
+    this.actions$.pipe(
+      ofType(SpeechPageAction.deleteSpeech),
+      mergeMap(({ speech }) =>
+        this.speechService.delete(speech.id).pipe(
+          tap(id => {
+            this.store.dispatch(SpeechApiAction.deleteSpeech({ id }));
+          }),
+          map(() => SpeechApiAction.deleteSpeechSuccess({speech})),
+          catchError(() => of(SpeechApiAction.deleteSpeechFail({ speech })))
         )
       )
     )
@@ -42,7 +93,8 @@ export class SpeechEffects {
 
   constructor(
     private actions$: Actions,
-    private speechService: SpeechService
+    private speechService: SpeechService,
+    private store: Store<fromSpeeches.State>
     // private googleBooks: GoogleBooksService
   ) {} 
 }

@@ -4,7 +4,7 @@
             <a class="navbar-brand" href="javascript:void(0)">
                 <h5 class="">
                     <i class="material-icons app-logo text-primary">share</i>
-                    Speech Sharing
+                    Speech Script Sharing
                 </h5>
             </a>
         </div>
@@ -55,6 +55,14 @@
                         <i class="material-icons">person</i>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+                        <a *ngIf="isOnDashboard" class="dropdown-item" href="javascript:void(0)">
+                            <i class="material-icons">supervisor_account</i> &nbsp;
+                            Manage Group
+                        </a>
+                        <a *ngIf="isOnDashboard" class="dropdown-item" [routerLink]="['dashboard']" href="javascript:void(0)">
+                            <i class="material-icons">exit_to_app</i> &nbsp;
+                            Leave Group
+                        </a>
                         <a class="dropdown-item" href="javascript:void(0)">
                             <i class="material-icons">settings</i> &nbsp;
                             Account

@@ -6,6 +6,7 @@ import { RouterModule } from '@angular/router';
 import { AppRoutingModule } from './app.routing';
 // import { AuthModule } from './auth';
 import { SpeechesModule } from './speeches';
+import { UsersModule } from './users';
 import { CoreModule } from './core';
 import { AppLayoutComponent } from './core/containers';
 import { AgmCoreModule } from '@agm/core';
@@ -38,6 +39,7 @@ import {
   MatNativeDateModule,
   MatCardModule
 } from '@angular/material';
+import { MatPasswordStrengthModule } from '@angular-material-extensions/password-strength';
 
 @NgModule({
   imports: [
@@ -61,6 +63,7 @@ import {
     MatNativeDateModule,
     MatCardModule,
     SpeechesModule,
+    UsersModule,
     CoreModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireStorageModule,
@@ -84,6 +87,7 @@ import {
       name: 'NgRx Book Store App',
     }),
     EffectsModule.forRoot([]),
+    MatPasswordStrengthModule,
   ],
   declarations: [
     AppLayoutComponent,
