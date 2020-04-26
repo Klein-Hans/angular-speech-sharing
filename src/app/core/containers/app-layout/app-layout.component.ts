@@ -1,5 +1,7 @@
 import { Component, OnInit, HostListener } from '@angular/core';
 
+declare const $: any;
+
 @Component({
   selector: 'app-root',
   templateUrl: './app-layout.component.html',

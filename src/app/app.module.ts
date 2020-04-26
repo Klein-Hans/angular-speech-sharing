@@ -27,6 +27,7 @@ import { AngularFireFunctionsModule, ORIGIN as FUNCTIONS_ORIGIN } from '@angular
 import { AngularFireRemoteConfigModule, SETTINGS as REMOTE_CONFIG_SETTINGS } from '@angular/fire/remote-config';
 import { AngularFirePerformanceModule } from '@angular/fire/performance';
 import { AngularFireAuthGuardModule } from '@angular/fire/auth-guard';
+import { NgxAuthFirebaseUIModule } from 'ngx-auth-firebaseui';
 import {
   MatButtonModule,
   MatInputModule,
@@ -39,7 +40,6 @@ import {
   MatNativeDateModule,
   MatCardModule
 } from '@angular/material';
-import { MatPasswordStrengthModule } from '@angular-material-extensions/password-strength';
 
 @NgModule({
   imports: [
@@ -76,9 +76,9 @@ import { MatPasswordStrengthModule } from '@angular-material-extensions/password
     AngularFireRemoteConfigModule,
     AngularFirePerformanceModule,
     AngularFireAuthGuardModule,
-    AgmCoreModule.forRoot({
-      apiKey: 'YOUR_GOOGLE_MAPS_API_KEY'
-    }),
+    // AgmCoreModule.forRoot({
+    //   apiKey: 'YOUR_GOOGLE_MAPS_API_KEY'
+    // }),
     StoreModule.forRoot(reducers, {
       metaReducers
     }),
@@ -87,7 +87,7 @@ import { MatPasswordStrengthModule } from '@angular-material-extensions/password
       name: 'NgRx Book Store App',
     }),
     EffectsModule.forRoot([]),
-    MatPasswordStrengthModule,
+    NgxAuthFirebaseUIModule.forRoot(environment.firebase),
   ],
   declarations: [
     AppLayoutComponent,

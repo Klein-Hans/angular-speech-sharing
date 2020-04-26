@@ -20,12 +20,12 @@ declare var $: any;
 export class SpeechAdminPageComponent implements OnInit {
 
   date = Date.now();
-  private speeches$: Observable<Speech[]>;
-  private selectedSpeech$: Observable<Speech>;
-  private selectedSpeechId$: Observable<string>;
-  private selectedSpeechForm: FormGroup;
-  private newSpeechForm: FormGroup;
-  private newSpeechToastNotif$: Observable<object>;
+  speeches$: Observable<Speech[]>;
+  selectedSpeech$: Observable<Speech>;
+  selectedSpeechId$: Observable<string>;
+  selectedSpeechForm: FormGroup;
+  newSpeechForm: FormGroup;
+  newSpeechToastNotif$: Observable<object>;
   // private showNewSpeechNotif$: Observable<boolean>;
 
 

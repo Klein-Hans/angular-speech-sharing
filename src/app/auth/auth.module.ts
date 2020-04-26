@@ -12,6 +12,7 @@ import {
 import { AuthEffects } from './effects';
 import * as fromAuth from './reducers';
 import { AuthRoutingModule } from './auth-routing.module';
+import { MatPasswordStrengthModule } from '@angular-material-extensions/password-strength';
 import {
   MatButtonModule,
   MatInputModule,
@@ -49,6 +50,7 @@ export const COMPONENTS = [
     MatCardModule,
     StoreModule.forFeature(fromAuth.authFeatureKey, fromAuth.reducers),
     EffectsModule.forFeature([AuthEffects]),
+    MatPasswordStrengthModule
   ],
   declarations: COMPONENTS,
   entryComponents: [LogoutConfirmationDialogComponent],
