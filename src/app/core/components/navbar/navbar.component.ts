@@ -1,7 +1,9 @@
-import { Component, OnInit, ElementRef, Input } from '@angular/core';
+import { Component, OnInit, ElementRef, Input, EventEmitter, Output } from '@angular/core';
 import { ROUTES } from '../sidebar/sidebar.component';
 import {Location, LocationStrategy, PathLocationStrategy} from '@angular/common';
 import { Router, NavigationEnd } from '@angular/router';
+
+declare const $: any;
 
 @Component({
   selector: 'app-navbar',
@@ -11,11 +13,14 @@ import { Router, NavigationEnd } from '@angular/router';
 export class NavbarComponent implements OnInit {
   private listTitles: any[];
   location: Location;
-    mobile_menu_visible: any = 0;
+  mobile_menu_visible: any = 0;
   private toggleButton: any;
   private sidebarVisible: boolean;
-  isOnDashboard: boolean;
-  @Input() name;
+  isOnDashboard: boolean = false;
+  isAuthenticated: boolean = false;
+  @Input() displayName: string;
+  @Output() logout = new EventEmitter<any>();
+
   constructor(
     location: Location,  
     private element: ElementRef, 
@@ -23,32 +28,39 @@ export class NavbarComponent implements OnInit {
   ) {
     this.location = location;
     this.sidebarVisible = false;
-    console.log(router.url);
-    router.events.subscribe((val) => {
-      if(val instanceof NavigationEnd)
-        this.isOnDashboard = val.url == '/dashboard' ? false : true;
-    });
+  }
+
+  ngOnChanges() {   
   }
 
   ngOnInit(){
     this.listTitles = ROUTES.filter(listTitle => listTitle);
     const navbar: HTMLElement = this.element.nativeElement;
     this.toggleButton = navbar.getElementsByClassName('navbar-toggler')[0];
-    this.router.events.subscribe((event) => {
-      this.sidebarClose();
-        var $layer: any = document.getElementsByClassName('close-layer')[0];
-        if ($layer) {
-          $layer.remove();
-          this.mobile_menu_visible = 0;
+    console.log(this.toggleButton)
+    this.router.events.subscribe((val) => {
+      if(val instanceof NavigationEnd) {
+        this.isOnDashboard = val.url == '/dashboard';
+        this.isAuthenticated = val.url == '/register' || val.url == '/login';
+        if(this.isAuthenticated){
+          this.toggleButton ? this.sidebarClose() : '';
+          var $layer: any = document.getElementsByClassName('close-layer')[0];
+          if ($layer) {
+            $layer.remove();
+            this.mobile_menu_visible = 0;
+          }
         }
+      }
     });
   }
 
   sidebarOpen() {
+    console.log(this.isOnDashboard)
     const toggleButton = this.toggleButton;
     const body = document.getElementsByTagName('body')[0];
     setTimeout(function(){
-        toggleButton.classList.add('toggled');
+      console.log(toggleButton);  
+      toggleButton.classList.add('toggled');
     }, 500);
 
     body.classList.add('nav-open');
@@ -58,7 +70,7 @@ export class NavbarComponent implements OnInit {
 
   sidebarClose() {
     const body = document.getElementsByTagName('body')[0];
-    this.toggleButton.classList.remove('toggled');
+    this.toggleButton.classList.contains('toggled') ? this.toggleButton.classList.remove('toggled') : '';
     this.sidebarVisible = false;
     body.classList.remove('nav-open');
   };
@@ -120,9 +132,15 @@ export class NavbarComponent implements OnInit {
     }
   };
 
+  isMobileMenu() {
+    if ($(window).width() > 991) {
+        return false;
+    }
+    return true;
+  }
+
   getTitle(){
     var titlee = this.location.prepareExternalUrl(this.location.path());
-    console.log(titlee);
     if(titlee.charAt(0) === '#'){
         titlee = titlee.slice( 1 );
     }
@@ -133,5 +151,9 @@ export class NavbarComponent implements OnInit {
         }
     }
     return 'Dashboard';
+  }
+
+  onLogout() {
+    this.logout.emit();
   }
 }

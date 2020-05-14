@@ -1,0 +1,60 @@
+<form [formGroup]="signInForm" (ngSubmit)="onLogin()">
+  <div class="bmd-form-group mt-3">
+    <div class="input-group">
+      <div class="input-group-prepend">
+        <span class="input-group-text">
+          <i class="material-icons">email</i>
+        </span>
+      </div>
+      <mat-form-field class="p-0 col-lg-8 col-md-8 col-sm-8" [ngClass]="{'has-danger': email.touched && (email.hasError('required') || email.hasError('email'))}">
+        <mat-label>Email</mat-label>
+        <input
+          formControlName="email"
+          matInput 
+          type="email" 
+          name="email" 
+          [email]="true">
+      </mat-form-field>  
+      <div 
+        *ngIf="email.touched && email.hasError('required')" 
+        class="error-msg ml-1 pl-5 text-danger">
+          Email is required.
+      </div>
+      <div 
+        *ngIf="email.touched && email.hasError('email') && !email.hasError('required')" 
+        class="error-msg ml-1 pl-5 text-danger">
+          Please enter a valid email address
+      </div>  
+    </div>
+  </div> <!-- end of bmd-form-group -->
+  <div class="bmd-form-group mt-3">
+    <div class="input-group">
+      <div class="input-group-prepend">
+        <span class="input-group-text">
+          <i class="material-icons">lock_outline</i>
+        </span>
+      </div>
+      <mat-form-field 
+        class="p-0 col-lg-8 col-md-8 col-sm-8" 
+        [ngClass]="{'has-danger': password.touched && password.hasError('required') }">
+        <mat-label>Password</mat-label>
+        <input
+          formControlName="password"
+          matInput 
+          [type]="hide ? 'password' : 'text'">
+        <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+        <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+        </button>
+      </mat-form-field>       
+      <div 
+        *ngIf="password.touched && password.hasError('required')" 
+        class="error-msg ml-1 pl-5 text-danger">
+          Password is required.
+      </div>          
+    </div>
+  </div> <!-- end of bmd-form-group -->
+  <br>
+  <div class="justify-content-center">
+    <button type="submit" class="btn btn-primary mx-auto d-block" mat-raised-button>LET'S GO</button>
+  </div>
+</form>

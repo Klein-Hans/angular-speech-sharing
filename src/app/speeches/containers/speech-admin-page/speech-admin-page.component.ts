@@ -1,13 +1,11 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { FormControl, FormBuilder, FormGroup } from '@angular/forms';
+import { FormControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { select, Store } from '@ngrx/store';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 import { SpeechPageAction } from '../../actions';
 import { Speech } from 'app/speeches/models';
 import * as fromSpeeches from '../../reducers';
-import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
-import { Dictionary, Update } from '@ngrx/entity';
-import { first, take, tap } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 
 declare var $: any;
 
@@ -19,20 +17,18 @@ declare var $: any;
 })
 export class SpeechAdminPageComponent implements OnInit {
 
-  date = Date.now();
   private speeches$: Observable<Speech[]>;
   private selectedSpeech$: Observable<Speech>;
   private selectedSpeechId$: Observable<string>;
   private selectedSpeechForm: FormGroup;
   private newSpeechForm: FormGroup;
   private newSpeechToastNotif$: Observable<object>;
-  // private showNewSpeechNotif$: Observable<boolean>;
 
 
   constructor(
-    private afs: AngularFirestore,
     private store: Store<fromSpeeches.State>,
-    private formBuilder: FormBuilder) {
+    private fb: FormBuilder
+  ) {
     this.speeches$ = store.pipe(select(fromSpeeches.selectAllSpeeches));
     this.selectedSpeech$ = store.pipe(select(fromSpeeches.selectSelectedSpeech));
     this.selectedSpeechId$ = store.pipe(select(fromSpeeches.selectSelectedSpeechId));
@@ -42,6 +38,7 @@ export class SpeechAdminPageComponent implements OnInit {
     this.buildForm();
     this.store.dispatch(SpeechPageAction.loadSpeeches());
     this.speeches$.subscribe(speeches => {
+      console.log(speeches)
       speeches.map((speech, index) => {
         if(index === 0)
           this.store.dispatch(SpeechPageAction.selectSpeech({ id: speech.id }))
@@ -49,13 +46,13 @@ export class SpeechAdminPageComponent implements OnInit {
 
       this.selectedSpeech$.subscribe(speech => {
         if(speech){
-          this.selectedSpeechForm = new FormGroup({
-            'id': new FormControl(speech.id),
-            'subject': new FormControl(speech.subject),
-            'content': new FormControl(speech.content),
-            'author': new FormControl(speech.author),
-            'group': new FormControl(speech.group),
-            'publishedDate': new FormControl(new Date(speech.publishedDate.toDate())),
+          this.selectedSpeechForm = this.fb.group({
+            id: [speech.id],
+            subject: [speech.subject],
+            content: [speech.content],
+            author: [speech.author],
+            group: [speech.group],
+            publishedDate: [new Date(speech.publishedDate.toDate())],
           });
         }
       })
@@ -97,18 +94,18 @@ export class SpeechAdminPageComponent implements OnInit {
   }
 
   buildForm() {
-    this.selectedSpeechForm = new FormGroup({
-      'id': new FormControl(),
-      'subject': new FormControl(),
-      'content': new FormControl(),
-      'author': new FormControl(),
-      'group': new FormControl(),
-      'publishedDate': new FormControl(),
+    this.selectedSpeechForm = this.fb.group({
+      id: [''],
+      subject: [''],
+      content: [''],
+      author: [''],
+      group: [''],
+      publishedDate: [''],
     });
 
-    this.newSpeechForm = new FormGroup({
-      'subject': new FormControl(),
-      'content': new FormControl(),
+    this.newSpeechForm = this.fb.group({
+      subject: ['', [Validators.required]],
+      content:  ['', [Validators.required]],
     });
   }
 

@@ -1,5 +1,4 @@
 import { createAction, props } from '@ngrx/store';
-
 import { Speech } from '../models';
 import { Update } from '@ngrx/entity';
 
@@ -13,7 +12,7 @@ export const searchFailure = createAction(
   props<{ errorMsg: string }>()
 );
 
-export const loadSpeeches = createAction(
+export const getSpeeches = createAction(
   '[Speeches/API] Load Speeches',
   props<{ speeches: Speech[] }>()
 );
@@ -39,22 +38,22 @@ export const addSpeechSuccess = createAction(
 );
 
 export const addSpeechFail = createAction(
-  '[Speeches/API] Add Speeches Fail',
+  '[Speeches/API] Add Speech Fail',
   props<{ speech: Speech }>()
 );
 
 export const updateSpeech = createAction(
-  '[Speeches/API] Update Speeches',
+  '[Speeches/API] Update Speech',
   props<{ speech: Update<Speech> }>()
 );
 
 export const updateSpeechSuccess = createAction(
-  '[Speeches/API] Update Speeches Success',
+  '[Speeches/API] Update Speech Success',
   props<{ speech: Speech }>()
 );
 
 export const updateSpeechFail = createAction(
-  '[Speeches/API] Update Speeches Fail',
+  '[Speeches/API] Update Speech Fail',
   props<{ speech: Speech }>()
 );
 

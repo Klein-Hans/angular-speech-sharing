@@ -1,7 +1,7 @@
-import { Component, OnInit, Input, Output, EventEmitter, ViewChild, TemplateRef, Inject } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ViewChild, TemplateRef } from '@angular/core';
 import { Speech } from 'app/speeches/models';
-import { FormControl, FormGroup, FormBuilder } from '@angular/forms';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { FormGroup } from '@angular/forms';
+import { MatDialog } from '@angular/material';
 
 @Component({
   selector: 'nav-tab-table',
@@ -23,10 +23,8 @@ export class NavTabTableComponent implements OnInit{
   speechQuery: string;
   
   constructor(
-    // public dialogRef: MatDialogRef<TemplateRef<any>>,
     private dialog: MatDialog,
-    // @Inject(MAT_DIALOG_DATA) public data: any
-    ) { }
+  ) { }
 
   ngOnInit() {    
   }

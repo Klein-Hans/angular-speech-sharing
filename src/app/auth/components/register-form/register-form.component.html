@@ -1,0 +1,135 @@
+<form [formGroup]="signUpForm" (ngSubmit)="onRegister()">
+  <div class="bmd-form-group">
+    <div class="input-group">
+      <div class="input-group-prepend">
+        <span class="input-group-text">
+            <i class="material-icons">face</i>
+        </span>
+      </div>
+      <mat-form-field class="w-75" [ngClass]="{'has-danger': name.touched && name.hasError('required')}">
+        <mat-label>Name</mat-label>
+        <input 
+          formControlName="displayName"
+          matInput 
+          type="text">
+      </mat-form-field>  
+      <div *ngIf="name.touched && name.hasError('required')" class="error-msg ml-1 pl-5 text-danger">
+        Name is required.
+      </div>
+    </div>
+  </div> <!-- end of bmd-form-group -->
+  <div class="bmd-form-group mt-3">
+    <div class="input-group">
+      <div class="input-group-prepend">
+        <span class="input-group-text">
+          <i class="material-icons">email</i>
+        </span>
+      </div>
+      <mat-form-field class="w-75" [ngClass]="{'has-danger': email.touched && (email.hasError('required') || email.hasError('email'))}">
+        <mat-label>Email</mat-label>
+        <input
+          formControlName="email"
+          matInput 
+          type="email" 
+          [email]="true">
+      </mat-form-field>  
+      <div 
+        *ngIf="email.touched && email.hasError('required')" 
+        class="error-msg ml-1 pl-5 text-danger">
+          Email is required.
+      </div>
+      <div 
+        *ngIf="email.touched && email.hasError('email') && !email.hasError('required')" 
+        class="error-msg ml-1 pl-5 text-danger">
+          Please enter a valid email address
+      </div>
+    </div>
+  </div> <!-- end of bmd-form-group -->
+  <div class="bmd-form-group mt-3">
+    <div class="input-group">
+      <div class="input-group-prepend">
+        <span class="input-group-text">
+          <i class="material-icons">lock_outline</i>
+        </span>
+      </div>
+      <mat-form-field 
+        class="w-75" 
+        [ngClass]="{'has-danger': password.touched && password.hasError('required') }">
+        <mat-label>Password</mat-label>
+        <input
+          formControlName="password"
+          matInput 
+          [type]="hide ? 'password' : 'text'">
+        <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+        <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+        </button>
+      </mat-form-field>       
+      <div 
+        *ngIf="password.touched && password.hasError('required')" 
+        class="error-msg ml-1 pl-5 text-danger">
+          Password is required.
+      </div>
+      <div
+        *ngIf="password.touched && (password.hasError('required') || password.hasError('minlength'))"
+        class="error-msg ml-1 pl-5 text-danger">
+        Must be at least 8 characters!
+      </div>
+      <div
+        *ngIf="password.touched && (password.hasError('required') || password.hasError('hasNumber'))"
+        class="error-msg ml-1 pl-5 text-danger">
+        Must contain at least 1 number!
+      </div>
+      <div 
+        *ngIf="password.touched && (password.hasError('required') || password.hasError('hasCapitalCase'))"
+        class="error-msg ml-1 pl-5 text-danger">
+        Must contain at least 1 in Capital Case!
+      </div>
+      <div 
+        *ngIf="password.touched && (password.hasError('required') || password.hasError('hasSmallCase'))"
+        class="error-msg ml-1 pl-5 text-danger">
+        Must contain at least 1 Letter in Small Case!
+      </div>
+      <div 
+        *ngIf="password.touched && (password.hasError('required') || password.hasError('hasSpecialCharacters'))"
+        class="error-msg ml-1 pl-5 text-danger">
+        Must contain at least 1 Special Character!
+      </div>      
+    </div>
+  </div> <!-- end of bmd-form-group -->
+  <div class="bmd-form-group mt-3">
+    <div class="input-group">
+      <div class="input-group-prepend">
+        <span class="input-group-text">
+          <i class="material-icons">lock_outline</i>
+        </span>
+      </div>
+      <mat-form-field 
+        class="w-75" 
+        [ngClass]="{'has-danger': confirmPassword.touched && (
+          confirmPassword.hasError('required') || confirmPassword.hasError('NoPassswordMatch')) }">
+        <mat-label>Confirm Password</mat-label>
+        <input
+          formControlName="confirmPassword"
+          matInput 
+          [type]="hide ? 'password' : 'text'">
+        <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+        <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+        </button>
+      </mat-form-field>  
+      <div 
+        *ngIf="confirmPassword.touched && confirmPassword.hasError('required')" 
+        class="error-msg ml-1 pl-5 text-danger">
+          Confirm Password is required.
+      </div>
+      <div 
+        *ngIf="confirmPassword.touched && !confirmPassword.hasError('required') && confirmPassword.hasError('NoPassswordMatch')" 
+        class="error-msg ml-1 pl-5 text-danger">
+          Password must match
+      </div>
+    </div>
+  </div> <!-- end of bmd-form-group -->
+  <br>
+  <div class="justify-content-center">
+    <button type="submit" class="btn btn-primary mx-auto d-block" mat-raised-button>Create Account</button>
+  </div>
+</form>

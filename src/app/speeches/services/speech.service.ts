@@ -28,11 +28,13 @@ export class SpeechService {
   }
 
   add(speech: Speech) {
-    let id: string;
+    let newSpeech: AngularFirestoreCollection<Speech> = this.afs.collection('speeches');
     this.speechCollection.add({
       ...speech
-    }).then(res => { id = res.id });
-    return this.afs.collection('speeches', ref => ref.where('id', '==', id)).valueChanges();
+    }).then(res => {
+      newSpeech = this.afs.collection('speeches', ref => ref.where('id', '==', res.id))
+    });
+    return newSpeech.valueChanges();
   }
 
   update(speech: Speech) {

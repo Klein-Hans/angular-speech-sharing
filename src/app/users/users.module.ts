@@ -1,23 +1,3 @@
-import { CommonModule } from '@angular/common';
-import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { EffectsModule, Actions } from '@ngrx/effects';
-import { StoreModule } from '@ngrx/store';
-import { UsersRoutingModule } from './users-routing';
-// import { 
-//   NavTabTableComponent, 
-//   PopUpDialogComponent, 
-//   SpeechTableComponent,
-// } from './components';
-import {
-  DashboardComponent,
-  AddEditUserPageComponent,
-  UserListPageComponent,
-  SelectedUserPageComponent
-} from './containers';
-// import { SpeechEffects } from './effects';
-// import * as fromUsers from './reducers';
-// import { PipesModule } from '@example-app/shared/pipes';
 import {
   MatButtonModule,
   MatInputModule,
@@ -28,20 +8,36 @@ import {
   MatDialogModule,
   MatDatepickerModule,
   MatNativeDateModule,
-  MatCardModule
+  MatCardModule,
+  MatIconModule,
 } from '@angular/material';
-// import { SpeechEffects } from './effects';
-import { PipesModule } from '../shared/pipes';
+import { CommonModule } from '@angular/common';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { EffectsModule, Actions } from '@ngrx/effects';
+import { StoreModule } from '@ngrx/store';
+import { UsersRoutingModule } from './users-routing';
+import { UserEffects, RoleEffects } from './effects';
+import * as fromUsers from './reducers';
+import { PipesModule } from '../core/pipes';
+import { 
+  UsersTableComponent, 
+  UserCreateUpdateFormComponent,
+} from './components';
+import {
+  DashboardComponent,
+  CreateUpdateUserPageComponent,
+  UserListPageComponent,
+} from './containers';
 
 export const COMPONENTS = [
-  // NavTabTableComponent,
-  // PopUpDialogComponent,
-  // SpeechTableComponent,
+  UsersTableComponent, 
+  UserCreateUpdateFormComponent
 ];
 
 export const CONTAINERS = [
   DashboardComponent,
-  AddEditUserPageComponent,
+  CreateUpdateUserPageComponent,
   UserListPageComponent,
 ];
 
@@ -61,18 +57,20 @@ export const CONTAINERS = [
     MatDatepickerModule,
     MatNativeDateModule,
     MatCardModule,
+    MatIconModule,
+
     /**
      * StoreModule.forFeature is used for composing state
      * from feature modules. These modules can be loaded
      * eagerly or lazily and will be dynamically added to
      * the existing state.
      */
-    // StoreModule.forFeature('speeches', fromSpeeches.reducers),
-    // EffectsModule.forFeature([SpeechEffects]),
+    StoreModule.forFeature('users', fromUsers.reducers),
+    EffectsModule.forFeature([UserEffects, RoleEffects]),
     PipesModule,
   ],
   providers: [ Actions ],
-  declarations: [ COMPONENTS, CONTAINERS, SelectedUserPageComponent ],
+  declarations: [ COMPONENTS, CONTAINERS ],
   // entryComponents: [ PopUpDialogComponent ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 })

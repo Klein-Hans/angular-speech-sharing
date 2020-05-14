@@ -8,15 +8,16 @@ import {
   NavTabTableComponent, 
   PopUpDialogComponent, 
   SpeechTableComponent,
+  SpeechDetailComponent,
 } from './components';
 import {
   DashboardComponent,
   SpeechAdminPageComponent,
   SpeechMemberPageComponent,
 } from './containers';
-// import { SpeechEffects } from './effects';
 import * as fromSpeeches from './reducers';
-// import { PipesModule } from '@example-app/shared/pipes';
+import { SpeechEffects } from './effects';
+import { PipesModule } from '../core/pipes';
 import {
   MatButtonModule,
   MatInputModule,
@@ -29,14 +30,12 @@ import {
   MatNativeDateModule,
   MatCardModule
 } from '@angular/material';
-import { SpeechEffects } from './effects';
-import { PipesModule } from '../shared/pipes/';
-import { SpeechDetailComponent } from './components/speech-detail/speech-detail.component';
 
 export const COMPONENTS = [
   NavTabTableComponent,
   PopUpDialogComponent,
   SpeechTableComponent,
+  SpeechDetailComponent,
 ];
 
 export const CONTAINERS = [
@@ -72,7 +71,7 @@ export const CONTAINERS = [
     PipesModule,
   ],
   providers: [ Actions ],
-  declarations: [ COMPONENTS, CONTAINERS, SpeechDetailComponent ],
+  declarations: [ COMPONENTS, CONTAINERS ],
   entryComponents: [ PopUpDialogComponent ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 })

@@ -1,3 +1,22 @@
+body {
+    background: url("../img/minimal-landscape.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
 .mat-dialog-container {
     overflow-x: hidden;
+}
+
+.card-body {
+    #register-form-wrapper{
+        padding-top: 0 !important;
+        padding-bottom: 0 !important;
+    }
+    
+    #register-form {
+        width: 100% !important;
+        max-width: 100% !important;
+        padding: 0 !important;
+    }
 }

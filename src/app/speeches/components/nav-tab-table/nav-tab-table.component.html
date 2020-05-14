@@ -131,28 +131,18 @@
 									<div class="ripple-container"></div>
 							</button>
 					</div>
-			</form>
+			  </form>
 				<table class="table">
 					<thead class=" text-primary">
-						<th>
-								ID
-						</th>
-						<th>
-								Author
-						</th>
-						<th>
-								Subject
-						</th>
-						<th>
-								Content
-						</th>
-						<th>
-								Action
-						</th>
+						<th> # </th>
+						<th> Author </th>
+						<th> Subject </th>
+						<th> Content </th>
+						<th> Action </th>
 					</thead>
 					<tbody>
 						<tr *ngFor="let speech of speeches | filter: speechQuery">
-							<td>{{ speech.id }}</td>
+							<td>{{ 1 }}</td>
 							<td>{{ speech.author }}</td>
 							<td>
 								{{ ( speech.subject.length > 16 ) ? ( speech.subject | slice: 0:16 ) + '...' : ( speech.subject ) }}

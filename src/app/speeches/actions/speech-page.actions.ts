@@ -1,6 +1,5 @@
 import { createAction, props } from '@ngrx/store';
 import { Speech } from '../models';
-import { Update } from '@ngrx/entity';
 
 export const loadSpeeches = createAction('[Speech Module] Load Speeches',);
 

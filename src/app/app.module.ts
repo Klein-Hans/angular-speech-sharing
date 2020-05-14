@@ -4,7 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
 import { AppRoutingModule } from './app.routing';
-// import { AuthModule } from './auth';
+import { AuthModule } from './auth';
 import { SpeechesModule } from './speeches';
 import { UsersModule } from './users';
 import { CoreModule } from './core';
@@ -37,9 +37,8 @@ import {
   MatDialogModule,
   MatDatepickerModule,
   MatNativeDateModule,
-  MatCardModule
+  MatCardModule,
 } from '@angular/material';
-import { MatPasswordStrengthModule } from '@angular-material-extensions/password-strength';
 
 @NgModule({
   imports: [
@@ -47,7 +46,7 @@ import { MatPasswordStrengthModule } from '@angular-material-extensions/password
     FormsModule,
     ReactiveFormsModule,
     HttpModule, 
-    // AuthModule,
+    AuthModule,
     RouterModule,
     AppRoutingModule,
     FormsModule,
@@ -62,15 +61,15 @@ import { MatPasswordStrengthModule } from '@angular-material-extensions/password
     MatDatepickerModule,
     MatNativeDateModule,
     MatCardModule,
+    CoreModule,
     SpeechesModule,
     UsersModule,
-    CoreModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireStorageModule,
     AngularFireAnalyticsModule,
     AngularFireAuthModule,
     AngularFireDatabaseModule,
-    AngularFirestoreModule.enablePersistence({ synchronizeTabs: true }),
+    AngularFirestoreModule,
     AngularFireMessagingModule,
     AngularFireFunctionsModule,
     AngularFireRemoteConfigModule,
@@ -84,16 +83,15 @@ import { MatPasswordStrengthModule } from '@angular-material-extensions/password
     }),
     StoreRouterConnectingModule.forRoot(),
     StoreDevtoolsModule.instrument({
-      name: 'NgRx Book Store App',
+      name: 'NgRx SPeech Script Store App',
     }),
     EffectsModule.forRoot([]),
-    MatPasswordStrengthModule,
   ],
   declarations: [
     AppLayoutComponent,
   ],
   entryComponents: [],
-  providers: [MatDatepickerModule, Actions],
+  providers: [MatDatepickerModule, Actions,],
   bootstrap: [AppLayoutComponent]
 })
 export class AppModule { }

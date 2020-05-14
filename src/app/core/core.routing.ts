@@ -4,11 +4,11 @@ import { BrowserModule  } from '@angular/platform-browser';
 import { Routes, RouterModule } from '@angular/router';
 
 const routes: Routes =[
-  {
-    path: '',
-    redirectTo: 'landing',
-    pathMatch: 'full',
-  }, 
+  // {
+  //   path: '',
+  //   redirectTo: 'dsa',
+  //   pathMatch: 'full',
+  // }, 
   // {
   //   path: '',
   //   component: AdminLayoutComponent,

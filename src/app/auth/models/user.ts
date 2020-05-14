@@ -1,8 +1,11 @@
-export interface Credentials {
-  username: string;
-  password: string;
-}
-
 export interface User {
-  name: string;
+  uid: string;
+  email: string;
+  password?: string;
+  photoURL?: string;
+  phoneNumber? : string;
+  signInMethod? : string;
+  displayName?: string;
+  createdDate?: any;
+  updatedDate?: any;
 }

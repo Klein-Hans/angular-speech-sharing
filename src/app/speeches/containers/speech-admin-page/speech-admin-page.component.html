@@ -1,18 +1,16 @@
-<div class="container-fluid">
-	<div class="row">
-		<div class="col-lg-8 col-md-12 mx-auto">
-			<nav-tab-table
-				[speeches]="speeches$ | async"
-				[selectedSpeech]="selectedSpeech$ | async"
-				[selectedSpeechId]="selectedSpeechId$ | async"
-				[selectedSpeechForm]="selectedSpeechForm"
-				[newSpeechForm]="newSpeechForm"
-				(selectSpeech)="onSelectSpeech($event)"
-				(addSpeech)="onAddSpeech($event)"
-				(updateSpeech)="onUpdateSpeech($event)"
-				(removeSpeech)="onDeleteSpeech($event)"
-				>
-			</nav-tab-table>
-			</div> <!-- end of col -->
-	</div> <!-- end of row -->
-</div> <!-- end of container-fluid -->
+<div class="row">
+	<div class="col-lg-8 col-md-12 mx-auto">
+		<nav-tab-table
+			[speeches]="speeches$ | async"
+			[selectedSpeech]="selectedSpeech$ | async"
+			[selectedSpeechId]="selectedSpeechId$ | async"
+			[selectedSpeechForm]="selectedSpeechForm"
+			[newSpeechForm]="newSpeechForm"
+			(selectSpeech)="onSelectSpeech($event)"
+			(addSpeech)="onAddSpeech($event)"
+			(updateSpeech)="onUpdateSpeech($event)"
+			(removeSpeech)="onDeleteSpeech($event)"
+			>
+		</nav-tab-table>
+		</div> <!-- end of col -->
+</div> <!-- end of row -->

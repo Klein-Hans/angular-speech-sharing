@@ -1,0 +1,28 @@
+<div class="row">
+  <div class="mx-auto px-0 col-lg-3 col-md-4 col-sm-5">
+      <div class="card">
+          <div class="card-header card-header-primary text-center">
+            <h4 class="card-title">Login</h4>
+            <social-login
+              (facebookLogin)="onFacebookLogin()"
+              (githubLogin)="onGithubLogin()"
+              (googleLogin)="onGoogleLogin()"
+              >
+            </social-login>
+          </div>
+          <div class="card-body ">
+            <p class="card-description text-center">Or Be Classical</p>
+            <login-form
+              (login)="onLogin($event)"
+              [error]="error$ | async"
+            >
+            </login-form>
+          </div> <!-- end of card-body -->
+          <div class="card-footer justify-content-center">
+            <a href="javascript:void(0)" (click)="onNavigateRegister()">
+              Create an Account
+            </a>
+          </div>
+      </div>
+  </div>
+</div>

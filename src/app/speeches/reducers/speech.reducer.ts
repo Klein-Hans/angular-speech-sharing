@@ -1,14 +1,13 @@
 import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity';
-import { createReducer, on, Action } from '@ngrx/store';
+import { createReducer, on } from '@ngrx/store';
 import { SpeechPageAction, SpeechApiAction } from '../actions';
 import { Speech } from '../models';
-import { state } from '@angular/animations';
 
 export const speechFeatureKey = 'speeches';
 
 export interface State extends EntityState<Speech> {
   selectedSpeechId: string | null;
-  loaded: boolean,
+  error: string | null,
   loading: boolean,
   ids: string[],
 }
@@ -24,7 +23,7 @@ export const adapter: EntityAdapter<Speech> = createEntityAdapter<Speech>({
 
 export const initialState: State = adapter.getInitialState({
   selectedSpeechId: null,
-  loaded: false,
+  error: null,
   loading: false,
   ids: [],
 }); 
@@ -39,7 +38,7 @@ export const reducer = createReducer(
     ...state,
     loading: true,
   })),
-  on(SpeechApiAction.loadSpeeches, (state, { speeches }) => 
+  on(SpeechApiAction.getSpeeches, (state, { speeches }) => 
     adapter.addAll(speeches, state)
   ),
   on(SpeechApiAction.loadSpeechesSuccess, state => ({

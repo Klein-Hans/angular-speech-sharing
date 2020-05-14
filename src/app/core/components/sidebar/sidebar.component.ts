@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Router, NavigationEnd } from '@angular/router';
 
 declare const $: any;
 declare interface RouteInfo {
@@ -8,14 +9,8 @@ declare interface RouteInfo {
     class: string;
 }
 export const ROUTES: RouteInfo[] = [
-    { path: '/dashboard', title: 'Dashboard',  icon: 'dashboard', class: '' },
-    { path: '/user-profile', title: 'User Profile',  icon:'person', class: '' },
-    { path: '/table-list', title: 'Table List',  icon:'content_paste', class: '' },
-    { path: '/typography', title: 'Typography',  icon:'library_books', class: '' },
-    { path: '/icons', title: 'Icons',  icon:'bubble_chart', class: '' },
-    { path: '/maps', title: 'Maps',  icon:'location_on', class: '' },
-    { path: '/notifications', title: 'Notifications',  icon:'notifications', class: '' },
-    { path: '/upgrade', title: 'Upgrade to PRO',  icon:'unarchive', class: 'active-pro' },
+    // { path: '/users-dashboard', title: 'Dashboard',  icon: 'dashboard', class: '' },
+    { path: '/users/', title: 'User List',  icon:'person', class: '' },
 ];
 
 @Component({
@@ -26,11 +21,24 @@ export const ROUTES: RouteInfo[] = [
 export class SidebarComponent implements OnInit {
 
   menuItems: any[];
-
-  constructor() { }
+  isOnDashboard: boolean;
+  isNotAuthenticated: boolean;
+  @Output() logout = new EventEmitter<any>();
+  
+  constructor(private router: Router) {
+    router.events.subscribe((val) => {
+      if(val instanceof NavigationEnd) {
+        this.isOnDashboard = val.url == '/dashboard' ? false : true;
+        this.isNotAuthenticated = val.url == '/register' || val.url == '/login' ? false : true;
+      }
+    });
+   }
 
   ngOnInit() {
     this.menuItems = ROUTES.filter(menuItem => menuItem);
   }
-  
+
+  onLogout() {
+    this.logout.emit();
+  }
 }

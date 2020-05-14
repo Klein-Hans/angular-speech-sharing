@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Actions, createEffect, ofType, Effect, ROOT_EFFECTS_INIT } from '@ngrx/effects';
-import { asyncScheduler, EMPTY as empty, of } from 'rxjs';
-import * as fromSpeeches from '../../reducers';
+import { Actions, createEffect, ofType } from '@ngrx/effects';
+import { of } from 'rxjs';
 import {
   catchError,
   map,
@@ -12,9 +11,10 @@ import {
 
 import { Speech } from '../models';
 import { SpeechPageAction, SpeechApiAction } from '../actions';
-import { SpeechService } from '../services'
+import * as fromSpeeches from '../../reducers';
 import { Action, Store } from '@ngrx/store';
 import { Update } from '@ngrx/entity';
+import { SpeechService } from '../services'
 
 @Injectable()
 export class SpeechEffects {
@@ -29,7 +29,7 @@ export class SpeechEffects {
       switchMap(() => 
         this.speechService.getAll().pipe(
           tap((speeches: Speech[]) => 
-            this.store.dispatch(SpeechApiAction.loadSpeeches({ speeches }))
+            this.store.dispatch(SpeechApiAction.getSpeeches({ speeches }))
           ),
           map((speeches: Speech[]) => 
             SpeechApiAction.loadSpeechesSuccess({ speeches }),
@@ -47,6 +47,7 @@ export class SpeechEffects {
       ofType(SpeechPageAction.addSpeech),
       mergeMap(({ speech }) =>
         this.speechService.add(speech).pipe(
+          tap(e => console.log(e)),
           map(() => SpeechApiAction.addSpeechSuccess({ speech })),
           catchError(() => of(SpeechApiAction.addSpeechFail({ speech })))
         )

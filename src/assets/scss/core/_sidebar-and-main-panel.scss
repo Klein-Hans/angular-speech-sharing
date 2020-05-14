@@ -328,7 +328,7 @@
     }
 
     &[data-background-color="red"]{
-        @include sidebar-background-color($brand-danger, $white-color);
+        @include sidebar-background-color($brand-primary, $white-color);
 
         .user,
         .logo,

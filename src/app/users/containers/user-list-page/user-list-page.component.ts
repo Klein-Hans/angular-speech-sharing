@@ -1,4 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
+import { User } from '../../models'
+import * as fromUsers from '../../reducers';
+import { Store, select } from '@ngrx/store';
+import { UserPageAction } from 'app/users/actions';
 
 @Component({
   selector: 'app-user-list-page',
@@ -7,9 +12,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UserListPageComponent implements OnInit {
 
-  constructor() { }
+  private users$: Observable<User[]>;
+  private selectedUser$: Observable<User>;
+  private selectedUserId$: Observable<string>;
+  private newUserToastNotif$: Observable<object>;
 
-  ngOnInit() {
+  constructor(
+    private store: Store<fromUsers.State>
+  ) { 
+    this.users$ = store.pipe(select(fromUsers.selectAllUsers));
+    this.selectedUser$ = store.pipe(select(fromUsers.selectSelectedUser));
+    this.selectedUserId$ = store.pipe(select(fromUsers.selectSelectedUserId));
   }
 
+  ngOnInit() {
+    this.store.dispatch(UserPageAction.loadUsers());
+  }
 }

@@ -1,9 +1,14 @@
-import { UserType } from './user-type'
+import { Role } from './role';
 
 export interface User {
-    id: number;
-    userType: UserType;
-    name: string;
-    username: string;
-    password: string;
+    uid: string;
+    email: string;
+    password?: string;
+    photoURL?: string;
+    phoneNumber? : string;
+    signInMethod : string;
+    displayName: string;
+    role: Role;
+    createdDate: any;
+    updatedDate: any;
 }

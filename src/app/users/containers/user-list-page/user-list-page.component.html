@@ -1,3 +1,11 @@
-<p>
-  user-list works!
-</p>
+<div class="container">
+  <button 
+    [routerLink]="['/users/create']"
+    mat-raised-button 
+    class="btn btn-primary">
+    <i class="material-icons">add</i>
+    Add User
+  </button>
+  <users-table [users]="users$ | async"></users-table>
+  
+</div>
