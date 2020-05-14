@@ -8,7 +8,6 @@ import {
   SidebarComponent,
 } from './components';
 import {
-  AppLayoutComponent,
   NotFoundComponent,
 } from './containers';
 

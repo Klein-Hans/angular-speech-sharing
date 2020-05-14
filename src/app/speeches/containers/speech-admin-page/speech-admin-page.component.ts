@@ -24,7 +24,6 @@ export class SpeechAdminPageComponent implements OnInit {
   private newSpeechForm: FormGroup;
   private newSpeechToastNotif$: Observable<object>;
 
-
   constructor(
     private store: Store<fromSpeeches.State>,
     private fb: FormBuilder

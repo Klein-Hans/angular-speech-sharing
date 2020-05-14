@@ -75,9 +75,9 @@ import {
     AngularFireRemoteConfigModule,
     AngularFirePerformanceModule,
     AngularFireAuthGuardModule,
-    AgmCoreModule.forRoot({
-      apiKey: 'YOUR_GOOGLE_MAPS_API_KEY'
-    }),
+    // AgmCoreModule.forRoot({
+    //   apiKey: 'YOUR_GOOGLE_MAPS_API_KEY'
+    // }),
     StoreModule.forRoot(reducers, {
       metaReducers
     }),

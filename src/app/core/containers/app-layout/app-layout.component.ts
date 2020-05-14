@@ -9,6 +9,8 @@ import { User } from 'app/auth/models';
 
 declare const $: any;
 
+declare const $: any;
+
 @Component({
   selector: 'app-root',
   templateUrl: './app-layout.component.html',

@@ -1,7 +1,6 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 
-declare const $: any;
 declare interface RouteInfo {
     path: string;
     title: string;
